@@ -1,8 +1,9 @@
 """
 LLM-powered routing agent for the WhatsApp Message Notification Router.
 
-Uses OpenAI chat completions (and Whisper for voice notes) to decide whether
-each incoming message should notify, digest, or mute the user.
+Uses the OpenAI Python SDK against an open-source-compatible endpoint
+(OpenRouter, DeepSeek, Ollama, etc.) to decide whether each incoming message
+should notify, digest, or mute the user.
 """
 
 from __future__ import annotations
@@ -10,6 +11,7 @@ from __future__ import annotations
 import base64
 import json
 import os
+import re
 from pathlib import Path
 from typing import Any, Optional
 
@@ -71,24 +73,28 @@ Example:
 
 class MessageRouter:
     """
-    Routes WhatsApp messages using OpenAI models and structured JSON output.
+    Routes WhatsApp messages using open-source models via an OpenAI-compatible API.
 
-    Expects OPENAI_API_KEY in the environment. Accepts nested context dicts
-    produced by ContextBuilder.get_message_context().
+    Configure via environment variables:
+      OS_BASE_URL — API base (default: https://openrouter.ai/api/v1)
+      OS_API_KEY  — API key (default: dummy_key)
+      OS_MODEL    — model id (default: qwen/qwen-3-vl)
+
+    Accepts nested context dicts produced by ContextBuilder.get_message_context().
     """
 
     def __init__(
         self,
         dataset_dir: Path | str = DEFAULT_DATASET_DIR,
-        chat_model: str = "gpt-4o-mini",
-        vision_model: str = "gpt-4o",
     ) -> None:
         self.dataset_dir = Path(dataset_dir)
         self.audio_dir = self.dataset_dir / "media" / "audio"
         self.image_dir = self.dataset_dir / "media" / "images"
-        self.chat_model = chat_model
-        self.vision_model = vision_model
-        self.client = openai.OpenAI()
+        self.model = os.getenv("OS_MODEL", "qwen/qwen-3-vl")
+        self.client = openai.OpenAI(
+            base_url=os.getenv("OS_BASE_URL", "https://openrouter.ai/api/v1"),
+            api_key=os.getenv("OS_API_KEY", "dummy_key"),
+        )
 
     @staticmethod
     def encode_image(image_path: Path | str) -> str:
@@ -121,9 +127,21 @@ class MessageRouter:
             return "image/png"
         return "image/jpeg"
 
+    def transcribe_audio_local(self, audio_path: Path | str) -> str:
+        """
+        Transcribe a voice note with a local open-source speech model.
+
+        Placeholder for integration with tools such as cjpais/Handy or Whisper.cpp.
+        """
+        filename = Path(audio_path).name
+        return (
+            f"[Local Audio Transcription for {filename} "
+            "using cjpais/Handy or similar local model]"
+        )
+
     def _transcribe_voice(self, media_id: str) -> str:
         """
-        Transcribe a voice note with Whisper.
+        Resolve a voice note file and transcribe it locally.
 
         Returns transcript text, or an empty string if the file is missing
         or transcription fails.
@@ -133,19 +151,59 @@ class MessageRouter:
             return ""
 
         try:
-            with audio_path.open("rb") as audio_file:
-                transcription = self.client.audio.transcriptions.create(
-                    model="whisper-1",
-                    file=audio_file,
-                )
-            return (transcription.text or "").strip()
-        except (openai.OpenAIError, OSError, ValueError):
+            return self.transcribe_audio_local(audio_path).strip()
+        except OSError:
             return ""
+
+    @staticmethod
+    def _extract_json_string(raw_content: str) -> str:
+        """
+        Extract a JSON object string from model output.
+
+        Open-source models may ignore response_format and wrap JSON in markdown
+        fences or prepend explanatory text. This helper tries several strategies
+        before falling back to the raw string for json.loads to reject.
+        """
+        text = raw_content.strip()
+
+        # 1. Already valid JSON.
+        try:
+            json.loads(text)
+            return text
+        except json.JSONDecodeError:
+            pass
+
+        # 2. Markdown fenced block: ```json ... ``` or ``` ... ```
+        fence_match = re.search(
+            r"```(?:json)?\s*\n?(.*?)\n?```",
+            text,
+            flags=re.DOTALL | re.IGNORECASE,
+        )
+        if fence_match:
+            candidate = fence_match.group(1).strip()
+            try:
+                json.loads(candidate)
+                return candidate
+            except json.JSONDecodeError:
+                pass
+
+        # 3. Outermost {...} substring (handles leading/trailing prose).
+        start = text.find("{")
+        end = text.rfind("}")
+        if start != -1 and end > start:
+            candidate = text[start : end + 1]
+            try:
+                json.loads(candidate)
+                return candidate
+            except json.JSONDecodeError:
+                pass
+
+        return text
 
     def _build_context_payload(self, context: dict[str, Any]) -> dict[str, Any]:
         """
         Prepare context for the prompt, optionally enriching voice messages
-        with a Whisper transcript.
+        with a local transcript.
         """
         payload = json.loads(json.dumps(context, default=str))
         message = payload.get("message", {})
@@ -168,7 +226,8 @@ class MessageRouter:
 
     def _parse_route_response(self, raw_content: str) -> dict[str, Any]:
         """Parse and normalize the model's JSON routing decision."""
-        parsed = json.loads(raw_content)
+        json_str = self._extract_json_string(raw_content)
+        parsed = json.loads(json_str)
 
         action = str(parsed.get("action", "digest")).lower()
         if action not in {"notify", "digest", "mute"}:
@@ -210,7 +269,7 @@ class MessageRouter:
         """
         Route a single message using full pipeline context.
 
-        Handles voice transcription (Whisper), image vision input (base64),
+        Handles local voice transcription, image vision input (base64),
         and returns a parsed routing JSON dict. On any failure, returns a
         safe digest/unknown fallback.
         """
@@ -229,7 +288,6 @@ class MessageRouter:
             message = context.get("message", {})
             media_type = message.get("media_type", "")
             media_id = message.get("media_id", "")
-            model = self.chat_model
 
             # Attach image for multimodal reasoning when present.
             if media_type == "image" and media_id:
@@ -246,13 +304,12 @@ class MessageRouter:
                                 },
                             }
                         )
-                        model = self.vision_model
                     except OSError:
                         # Missing/unreadable image — continue with text-only context.
                         pass
 
             response = self.client.chat.completions.create(
-                model=model,
+                model=self.model,
                 messages=[
                     {"role": "system", "content": SYSTEM_PROMPT},
                     {"role": "user", "content": user_content},
@@ -271,9 +328,9 @@ class MessageRouter:
 
 
 if __name__ == "__main__":
-    # Smoke test: requires OPENAI_API_KEY and an existing message context.
-    if not os.getenv("OPENAI_API_KEY"):
-        print("Set OPENAI_API_KEY to run the router smoke test.")
+    # Smoke test: requires OS_API_KEY (or default dummy_key for local Ollama).
+    if not os.getenv("OS_API_KEY") and os.getenv("OS_BASE_URL") is None:
+        print("Set OS_API_KEY and optionally OS_BASE_URL / OS_MODEL to run the smoke test.")
     else:
         from data_pipeline import ContextBuilder
 
