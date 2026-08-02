@@ -93,6 +93,32 @@ def main() -> None:
         writer = csv.DictWriter(outfile, fieldnames=OUTPUT_COLUMNS)
         writer.writeheader()
         writer.writerows(results)
+        # ==========================================
+    # CLI ANALYTICS DASHBOARD
+    # ==========================================
+    print("\n" + "="*55)
+    print(" 🚀 WHATSAPP ROUTER LOGIC - RUN SUMMARY 🚀")
+    print("="*55)
+
+    total_msgs = len(results)
+    notify_count = sum(1 for r in results if r.get('action') == 'notify')
+    digest_count = sum(1 for r in results if r.get('action') == 'digest')
+    mute_count = sum(1 for r in results if r.get('action') == 'mute')
+    scam_spam_count = sum(1 for r in results if r.get('message_type') in ['scam', 'spam'])
+
+    interrupts_prevented = digest_count + mute_count
+    
+    # Calculate average confidence to show off our new calibrator
+    avg_confidence = sum(float(r.get('confidence', 0)) for r in results) / total_msgs if total_msgs > 0 else 0
+
+    print(f"Total Messages Processed       : {total_msgs}")
+    print(f"Urgent Notifications Delivered : {notify_count}")
+    print(f"Interrupts Prevented           : {interrupts_prevented} (Muted/Digested)")
+    print(f"Scams & Spam Blocked           : {scam_spam_count}")
+    print(f"System Average Confidence      : {avg_confidence:.2f}")
+    print("="*55)
+    print("✅ Output successfully saved to dataset/output.csv")
+    print("="*55 + "\n")
 
     elapsed = time.time() - start_time
     print(f"Done in {elapsed:.1f}s. Output saved to {OUTPUT_CSV}")
