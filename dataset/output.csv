@@ -1,111 +1,111 @@
 message_id,action,message_type,reason,confidence,evidence_message_ids
-msg_023,,,,,
-msg_091,,,,,
-msg_090,,,,,
-msg_048,,,,,
-msg_040,,,,,
-msg_075,,,,,
-msg_005,,,,,
-msg_104,,,,,
-msg_069,,,,,
-msg_107,,,,,
-msg_070,,,,,
-msg_003,,,,,
-msg_099,,,,,
-msg_008,,,,,
-msg_092,,,,,
-msg_060,,,,,
-msg_004,,,,,
-msg_030,,,,,
-msg_045,,,,,
-msg_052,,,,,
-msg_009,,,,,
-msg_071,,,,,
-msg_016,,,,,
-msg_065,,,,,
-msg_038,,,,,
-msg_086,,,,,
-msg_014,,,,,
-msg_094,,,,,
-msg_029,,,,,
-msg_105,,,,,
-msg_002,,,,,
-msg_010,,,,,
-msg_078,,,,,
-msg_013,,,,,
-msg_018,,,,,
-msg_044,,,,,
-msg_032,,,,,
-msg_106,,,,,
-msg_006,,,,,
-msg_109,,,,,
-msg_108,,,,,
-msg_019,,,,,
-msg_088,,,,,
-msg_056,,,,,
-msg_027,,,,,
-msg_050,,,,,
-msg_083,,,,,
-msg_063,,,,,
-msg_033,,,,,
-msg_061,,,,,
-msg_020,,,,,
-msg_017,,,,,
-msg_058,,,,,
-msg_026,,,,,
-msg_047,,,,,
-msg_046,,,,,
-msg_042,,,,,
-msg_079,,,,,
-msg_098,,,,,
-msg_037,,,,,
-msg_007,,,,,
-msg_085,,,,,
-msg_001,,,,,
-msg_021,,,,,
-msg_028,,,,,
-msg_012,,,,,
-msg_064,,,,,
-msg_103,,,,,
-msg_031,,,,,
-msg_057,,,,,
-msg_087,,,,,
-msg_067,,,,,
-msg_039,,,,,
-msg_082,,,,,
-msg_066,,,,,
-msg_049,,,,,
-msg_015,,,,,
-msg_051,,,,,
-msg_097,,,,,
-msg_089,,,,,
-msg_053,,,,,
-msg_059,,,,,
-msg_024,,,,,
-msg_072,,,,,
-msg_036,,,,,
-msg_076,,,,,
-msg_055,,,,,
-msg_102,,,,,
-msg_080,,,,,
-msg_093,,,,,
-msg_034,,,,,
-msg_035,,,,,
-msg_101,,,,,
-msg_041,,,,,
-msg_011,,,,,
-msg_110,,,,,
-msg_095,,,,,
-msg_074,,,,,
-msg_073,,,,,
-msg_054,,,,,
-msg_068,,,,,
-msg_100,,,,,
-msg_062,,,,,
-msg_096,,,,,
-msg_043,,,,,
-msg_077,,,,,
-msg_081,,,,,
-msg_025,,,,,
-msg_084,,,,,
-msg_022,,,,,
+msg_023,mute,business_update,The message is a routine update from the bank and falls within the user's quiet hours.,0.85,message_0243;message_0102;message_0101
+msg_091,mute,spam,The message is a phishing attempt asking for sensitive information.,0.95,message_0381;message_0238
+msg_090,digest,unknown,"The message is a low-priority inquiry with no urgency, suitable for later review.",0.85,none
+msg_048,mute,spam,"The message is a repeated request for payment with a QR code, which has been previously reported and dismissed by users.",0.85,message_0152;message_0151
+msg_040,mute,spam,"The message is a chain message requesting forwarding for luck, which is often considered spam.",0.95,message_0136;message_0135
+msg_075,notify,business_update,"The message contains an important update regarding the user's ride status, which is time-sensitive.",0.95,message_0206;message_0205
+msg_005,notify,event,The message is time-sensitive regarding the collection of a jacket by 6 PM today.,0.9,none
+msg_104,mute,unknown,"The sender has a negative affinity score and previous messages have been dismissed or muted, indicating low value.",0.85,message_0232;message_0383
+msg_069,mute,spam,"The message is a repetitive positive message that has been forwarded multiple times, indicating low value.",0.95,message_0194;message_0193;message_0042
+msg_107,mute,spam,"The message appears to be a scam related to OTP verification, which is often used in phishing attempts.",0.95,message_0056;message_0369;message_0235
+msg_070,mute,spam,"The message is a phishing attempt, warning about an OTP leak and urging to open a link, which is typical of scams.",0.95,message_0214;message_0213
+msg_003,notify,business_update,The message contains important delivery information regarding an order that is expected to arrive today.,0.95,message_0031;message_0267;message_0400
+msg_099,digest,business_update,"The message contains notes for a future meeting and is not urgent, allowing for later review.",0.85,message_0055;message_0228;message_0227
+msg_008,digest,business_update,"The message is a routine feedback request from a trusted business, and it's outside of quiet hours.",0.85,message_0072;message_0071;message_0296
+msg_092,digest,business_update,"The message contains a routine update about the user's monthly card statement, which can be reviewed later.",0.85,none
+msg_060,notify,event,Urgent reminder about internship approval forms closing soon.,0.95,message_0176;message_0284
+msg_004,notify,business_update,Important health-related update ready for review; user has a history of engagement with similar messages.,0.85,message_0245;message_0064;message_0063
+msg_030,mute,promotion,User has muted the group and has a history of dismissing similar messages.,0.9,message_0115;message_0050;message_0224
+msg_045,notify,urgent,Delivery person requires immediate confirmation for package pickup within 10 minutes.,0.95,message_0146;message_0145
+msg_052,mute,spam,"The message is from a suspicious sender with a history of being reported and dismissed, indicating it is likely spam.",0.95,message_0208;message_0207;message_0160
+msg_009,digest,event,"User is in quiet hours and has muted the group, making this a low-priority message.",0.85,message_0074;message_0073
+msg_071,digest,event,The message discusses a potential meeting but lacks urgency and specific details.,0.85,message_0197;message_0198
+msg_016,mute,spam,"The message is a suspicious account alert with a phishing link, and similar messages have been reported and dismissed in the past.",0.95,message_0087;message_0184;message_0088
+msg_065,mute,promotion,This message is a promotional offer from a business and is not urgent or time-sensitive.,0.85,message_0186;message_0185;message_0261
+msg_038,mute,spam,The message is a chain message with a high forwarded count and similar past messages were dismissed.,0.95,message_0131;message_0132
+msg_086,mute,unknown,"The message is a voice note with no text, and the sender is a business with a high volume of messages. User has a history of dismissing messages from this sender.",0.85,message_0222
+msg_014,mute,promotion,User has opted out of promotions and has a history of dismissing similar messages.,0.95,message_0017;message_0084;message_0083
+msg_094,mute,promotion,The message is a promotional offer from a business that the user has not engaged with significantly.,0.85,none
+msg_029,mute,promotion,"The message is a repeated promotion for a kurta set, which has low engagement from the user.",0.85,message_0095;message_0332
+msg_105,mute,spam,"The message is a forwarded health tip with high forwarded count and negative sender affinity, indicating it's likely spam.",0.95,message_0233;message_0373
+msg_002,notify,urgent,The message requests a quick call before a client meeting regarding an important refund issue.,0.95,message_0170;message_0169;message_0266
+msg_010,digest,business_update,"This is a routine feedback request from a trusted business, not urgent.",0.85,message_0011;message_0242;message_0076
+msg_078,mute,spam,Message appears to be a scam asking for sensitive information with a high forwarded count.,0.95,message_0212;message_0211
+msg_013,mute,promotion,The message is a promotional offer with no urgency and the sender has a negative affinity score.,0.85,message_0082;message_0081
+msg_018,mute,spam,The message is a promotional scam with high forwarded count and similar past messages reported.,0.95,message_0092;message_0091;message_0026
+msg_044,mute,spam,The message is a phishing attempt with a sense of urgency and has been forwarded multiple times.,0.95,message_0144;message_0143
+msg_032,digest,unknown,The request for slides is not urgent and can wait until later.,0.85,message_0285;message_0120;message_0119
+msg_106,notify,event,Urgent update about dance practice location and access instructions.,0.95,message_0234;message_0376
+msg_006,notify,event,Important maintenance notice with a deadline that requires immediate attention.,0.85,message_0271;message_0130;message_0269
+msg_109,mute,spam,"The message is a repetitive admin notice regarding payment penalties, which has been dismissed and muted in the past.",0.85,message_0152;message_0151
+msg_108,mute,spam,The message is a phishing attempt using a suspicious URL and has a history of being reported and muted.,0.95,message_0094;message_0093;message_0236
+msg_019,mute,spam,"The message appears to be a phishing attempt, as it uses a suspicious domain and has a history of similar messages being reported and muted.",0.95,message_0094;message_0093;message_0236
+msg_088,mute,spam,"The group is a marketplace with repetitive and unwanted messages, and the user has muted the group.",0.95,message_0115;message_0050;message_0224
+msg_056,notify,urgent,Doctor appointment change requires immediate confirmation.,0.9,none
+msg_027,mute,promotion,"This message is a marketing promotion for travel packages, which the user may find repetitive.",0.85,message_0272;message_0109;message_0033
+msg_050,digest,business_update,The message contains a health-related update that is important but can wait until after quiet hours.,0.85,message_0156;message_0155;message_0279
+msg_083,digest,unknown,Voice message from a coworker group; low urgency and within quiet hours.,0.85,message_0219
+msg_063,mute,spam,The message is a scam related to payment and has a history of similar messages being reported and muted.,0.95,message_0182;message_0181
+msg_033,digest,personal,"The message is friendly and not urgent, suitable for later viewing.",0.85,message_0121;message_0122
+msg_061,mute,spam,The message is a chain message with a high forwarded count and similar past messages have been muted.,0.95,message_0194;message_0193;message_0042
+msg_020,mute,spam,"The message contains a suspicious link and has been forwarded multiple times, indicating potential spam.",0.85,message_0095;message_0390;message_0332
+msg_017,mute,spam,"The message is a scam related to payment requests, similar to previously reported messages.",0.95,message_0090;message_0089
+msg_058,mute,spam,"The message is a forwarded health secret with high forwarded count, indicating it is likely spam.",0.95,message_0078;message_0077;message_0172
+msg_026,mute,spam,"The message is a repetitive scam attempt related to delivery fees, and the sender has a negative trust score.",0.95,message_0032;message_0108;message_0107
+msg_047,notify,event,Lift maintenance is time-sensitive and affects access; user needs to be informed immediately.,0.95,message_0150
+msg_046,mute,spam,The message is a scam attempting to solicit sensitive information (OTP).,0.95,message_0148;message_0147
+msg_042,notify,urgent,Security alert about main gate closure requiring immediate action.,0.95,message_0140;message_0139
+msg_079,mute,spam,"The message is a scam attempt related to account verification, similar to previous suspicious messages.",0.95,message_0214;message_0213;message_0173
+msg_098,notify,urgent,The sender is requesting an immediate call regarding a time-sensitive appointment decision.,0.95,message_0226;message_0054;message_0225
+msg_037,notify,urgent,"The message indicates an urgent need to act quickly regarding a water tank, which is time-sensitive.",0.95,message_0269;message_0130
+msg_007,digest,event,"The message is an update about a potluck with no immediate action required, and it falls within quiet hours.",0.85,message_0070;message_0069
+msg_085,mute,spam,The sender is a potentially fraudulent business account with a history of suspicious messages.,0.95,message_0221
+msg_001,notify,event,Urgent notice about water supply; requires immediate action.,0.95,message_0057;message_0240;message_0058
+msg_021,notify,payment,Payment due today before 5 PM; important for timely processing.,0.95,message_0271;message_0130;message_0269
+msg_028,mute,promotion,User has opted out of promotions and has a history of dismissing similar messages.,0.95,message_0034;message_0112;message_0111
+msg_012,mute,spam,"The message is a forwarded health tip with high forwarded count, indicating it is likely spam.",0.95,message_0247;message_0080;message_0079
+msg_064,mute,spam,The message is likely a scam based on previous reports of similar messages in the group.,0.95,message_0087;message_0184;message_0088
+msg_103,notify,event,The message is time-sensitive regarding the collection of the jacket by 6 PM.,0.95,message_0231;message_0382
+msg_031,notify,event,The message is urgent and related to a scheduled sync that requires immediate attention.,0.9,message_0249;message_0118;message_0117
+msg_057,notify,urgent,The message is time-sensitive and requires immediate attention to resolve a failing build before updating the client.,0.95,message_0170;message_0169;message_0266
+msg_087,mute,spam,"The group is muted by the user, and historical messages indicate repeated dismissals and reports, suggesting low value.",0.95,message_0204;message_0203;message_0223
+msg_067,notify,payment,Urgent maintenance payment reminder with a deadline to avoid late fees.,0.95,message_0271;message_0130;message_0269
+msg_039,notify,urgent,The message is time-sensitive regarding a school fee receipt needed before the field-trip list closes.,0.95,message_0255;message_0037;message_0134
+msg_082,digest,unknown,"The voice message lacks context and urgency, and it is outside of quiet hours.",0.75,message_0218;message_0397
+msg_066,mute,promotion,User has opted out of promotions and has a history of dismissing similar messages.,0.85,message_0188;message_0187
+msg_049,notify,business_update,Urgent reminder for return pickup scheduled today.,0.95,message_0153;message_0291;message_0154
+msg_015,mute,spam,"The message is a phishing attempt asking for OTP, which is unsafe.",0.95,message_0214;message_0213
+msg_051,mute,promotion,User has opted out of promotions and has a history of dismissing similar messages.,0.95,message_0104;message_0103;message_0257
+msg_097,digest,personal,The sender indicated that there is nothing urgent and prefers to talk tomorrow.,0.9,message_0054;message_0226;message_0225
+msg_089,notify,urgent,The message is time-sensitive regarding the retrieval of a personal item before 7 PM.,0.95,none
+msg_053,digest,business_update,Market update shared in a group; read later as it's not urgent.,0.85,message_0411;message_0253;message_0162
+msg_059,mute,spam,The message is a scam attempting to collect sensitive information under the guise of benefits.,0.95,message_0214;message_0213
+msg_024,mute,promotion,User has opted out of promotions and has a history of dismissing similar messages.,0.95,message_0104;message_0103;message_0257
+msg_072,mute,spam,The message contains a suspicious link and is similar to previously reported spam messages.,0.95,message_0214;message_0213
+msg_036,mute,spam,The message is a repeated verification request from a suspicious sender with a high forwarded count and negative user history.,0.95,message_0128;message_0127;message_0283
+msg_076,mute,spam,The message is from an unverified sender and has a history of being dismissed and reported by the user.,0.95,message_0208;message_0207;message_0160
+msg_055,notify,urgent,The sender is requesting an urgent call and needs a decision within ten minutes.,0.95,message_0166;message_0165
+msg_102,notify,urgent,The message is time-sensitive and requires immediate attention to monitor the rollback process.,0.95,message_0371;message_0230
+msg_080,notify,urgent,The message is time-sensitive and requires immediate action to avoid security issues.,0.95,message_0130;message_0269
+msg_093,notify,event,Delivery attempt scheduled; important for the user to be aware.,0.85,none
+msg_034,mute,greeting,"The message is a non-urgent greeting and has a high forwarded count, indicating it may be repetitive or unwanted.",0.85,message_0078;message_0077;message_0172
+msg_035,mute,promotion,"The message is a promotional message from RazorpayX, which is repetitive and low-value.",0.85,message_0126;message_0125;message_0281
+msg_101,digest,personal,The message is friendly and low priority; it can wait until the user is available.,0.85,message_0370;message_0229;message_0268
+msg_041,digest,business_update,"The message is a survey request from a verified business, but it is not urgent and can be reviewed later.",0.85,message_0138;message_0137
+msg_011,mute,forward,"The message is a forwarded positivity message with high forwarded count, indicating it is likely low-value and repetitive.",0.85,message_0078;message_0077;message_0172
+msg_110,mute,scam,The message is likely a phishing attempt based on the sender's history and previous messages reported as scams.,0.95,message_0381;message_0238
+msg_095,mute,scam,"The message contains a suspicious link and a request for sensitive information, indicating a potential scam.",0.95,none
+msg_074,mute,spam,"Repetitive marketing message about land plots, previously dismissed and reported.",0.95,message_0204;message_0203;message_0223
+msg_073,mute,spam,The message is a security scam with a high forwarded count and similar past messages reported as spam.,0.95,message_0087;message_0184;message_0088
+msg_054,mute,spam,"The message appears to be a scam related to loan processing fees, similar to previously reported messages.",0.95,message_0164;message_0163
+msg_068,digest,event,The message indicates no urgency and suggests discussing plans later.,0.9,message_0192;message_0191
+msg_100,notify,urgent,"The message indicates a critical situation with payment retries and a client escalation in 20 minutes, requiring immediate attention.",0.95,message_0055;message_0228
+msg_062,digest,unknown,"The message is a routine notice about a fire alarm test, which is important but not urgent.",0.85,none
+msg_096,notify,urgent,The message is time-sensitive regarding the retrieval of a lost passport before 18h.,0.9,none
+msg_043,notify,urgent,Time-sensitive message about tanker supply requiring immediate action.,0.95,message_0271;message_0130;message_0269
+msg_077,notify,event,Important school circular regarding tomorrow's field trip with consent form and deadlines.,0.95,message_0255;message_0037
+msg_081,digest,unknown,"The voice message lacks content and context, making it low priority for immediate attention.",0.7,message_0217
+msg_025,digest,business_update,The message provides an update on an order but is not urgent and falls within quiet hours.,0.85,message_0106;message_0105;message_0239
+msg_084,mute,spam,"The sender is a bank with a history of muted and dismissed messages, indicating low value and unwanted communication.",0.85,message_0220
+msg_022,mute,payment,"The message is a payment reminder from a group with a history of dismissed and muted messages, indicating low value and potential spam.",0.85,message_0152;message_0151
